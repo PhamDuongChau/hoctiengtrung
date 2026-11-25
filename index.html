@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giáo Trình Hán Ngữ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="index.html">🏮 Giáo Trình Hán Ngữ</a>
+      <nav>
+        <a href="#lessons">Bài học</a>
+        <a href="#skills">Kỹ năng</a>
+        <a href="#results">Kết quả</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="container">
+      <h1>Giáo Trình Hán Ngữ 1+2</h1>
+      <p>26 bài · Ngữ âm · Từ vựng · Bài khoá · Ngữ pháp · Bài tập</p>
+      <a class="btn" href="#lessons">Bắt đầu học</a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section id="lessons">
+      <h2>Khám phá bài học</h2>
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Tìm bài học (tiếng Việt hoặc chữ Hán)...">
+        <select id="levelSelect" class="chip"></select>
+        <button class="chip active" data-filter="all">Tất cả</button>
+        <button class="chip" data-filter="todo">Chưa học</button>
+        <button class="chip" data-filter="done">Đã nộp</button>
+      </div>
+      <div id="lessonGrid" class="grid"></div>
+      <p id="empty" class="empty" hidden>Không có bài học phù hợp.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Rèn luyện kỹ năng</h2>
+      <div class="skills">
+        <div class="skill"><h3>📖 Từ vựng</h3><p>Pinyin, Hán Việt, phát âm, thẻ ghi nhớ và câu chuyện nhớ chữ.</p></div>
+        <div class="skill"><h3>💬 Bài khoá</h3><p>Hội thoại và đoạn văn có pinyin, bấm để nghe.</p></div>
+        <div class="skill"><h3>🧩 Ngữ pháp</h3><p>Giải thích rõ ràng kèm ví dụ.</p></div>
+        <div class="skill"><h3>✍️ Bài tập</h3><p>Bài tập theo sách có đáp án và trắc nghiệm từ vựng.</p></div>
+      </div>
+    </section>
+
+    <section id="results">
+      <h2>Kết quả của bạn</h2>
+      <div class="stats">
+        <div class="stat"><b id="statDone">0</b>Bài đã nộp</div>
+        <div class="stat"><b id="statBest">0%</b>Điểm cao nhất</div>
+        <div class="stat"><b id="statAvg">0%</b>Điểm trung bình</div>
+      </div>
+      <p><button class="btn secondary" id="resetBtn">Xoá kết quả</button></p>
+    </section>
+  </main>
+
+  <footer>Làm bằng HTML, CSS, JavaScript · Lưu tiến độ trên trình duyệt của bạn</footer>
+
+  <script src="data/index.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

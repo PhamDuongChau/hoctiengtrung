@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài học</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="index.html">🏮 Giáo Trình Hán Ngữ</a>
+      <nav>
+        <a href="#" id="prevLesson">← Bài trước</a>
+        <a href="index.html#lessons">Danh sách</a>
+        <a href="#" id="nextLesson">Bài sau →</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <div class="num" id="lessonNum"></div>
+      <h1 id="lessonTitle">Đang tải…</h1>
+      <div class="tabs" id="tabs">
+        <button class="tab" data-tab="phonetics">🔤 Ngữ âm</button>
+        <button class="tab" data-tab="vocab">📖 Từ vựng</button>
+        <button class="tab" data-tab="text">💬 Bài khoá</button>
+        <button class="tab" data-tab="grammar">🧩 Ngữ pháp</button>
+        <button class="tab" data-tab="write">🖌️ Luyện viết</button>
+        <button class="tab" data-tab="exercises">✍️ Bài tập</button>
+      </div>
+
+      <div class="panel" id="phonetics"></div>
+
+      <div class="panel" id="vocab">
+        <div class="table-wrap">
+          <table class="vocab-table">
+            <thead><tr><th>#</th><th>Chữ Hán</th><th>Pinyin</th><th>Hán Việt</th><th>Từ loại</th><th>Nghĩa</th><th></th></tr></thead>
+            <tbody id="vocabTable"></tbody>
+          </table>
+        </div>
+        <div id="storySection">
+          <h3 style="margin-top:30px">💡 Câu chuyện nhớ chữ Hán</h3>
+          <p class="py">Đọc câu chuyện, tưởng tượng hình ảnh, rồi che lại và thử nhớ chữ.</p>
+          <div class="story-grid" id="storyGrid"></div>
+        </div>
+        <h3 class="center" style="margin-top:30px">Thẻ ghi nhớ</h3>
+        <div class="flash" id="flash">
+          <div class="flash-inner">
+            <div class="face"><div class="big zh" id="fFront"></div><small>Bấm để lật</small></div>
+            <div class="face back"><div id="fPy" class="py"></div><div id="fHv" class="py"></div><div id="fVi"></div></div>
+          </div>
+        </div>
+        <p class="center">
+          <button class="btn secondary" id="prevCard">← Trước</button>
+          <span id="cardCount"></span>
+          <button class="btn secondary" id="nextCard">Sau →</button>
+        </p>
+      </div>
+
+      <div class="panel" id="text"></div>
+      <div class="panel" id="grammar"></div>
+
+      <div class="panel" id="write">
+        <p>Chọn một chữ, xem thứ tự nét rồi tự viết bằng chuột hoặc ngón tay.</p>
+        <div class="hw-chars" id="hwChars"></div>
+        <div class="hw-wrap">
+          <div>
+            <div id="hwTarget"></div>
+            <div class="hw-buttons">
+              <button class="btn" id="hwAnimate">▶ Xem cách viết</button>
+              <button class="btn secondary" id="hwQuiz">✍ Tự viết</button>
+              <button class="btn secondary" id="hwOutline">Ẩn/hiện chữ mờ</button>
+            </div>
+          </div>
+          <div class="box" style="min-width:220px; max-width:420px">
+            <div class="zh" style="font-size:2rem" id="hwWord"></div>
+            <div class="py" id="hwPy"></div>
+            <div id="hwVi"></div>
+            <p class="story-text" id="hwStory"></p>
+            <p id="hwMsg"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="exercises">
+        <div id="bookExercises"></div>
+        <h2 style="margin-top:40px">🎯 Trắc nghiệm từ vựng</h2>
+        <p class="py">Chọn nghĩa đúng của từng từ, rồi bấm "Nộp bài" để lưu điểm.</p>
+        <div id="quiz"></div>
+        <p><button class="btn" id="submitBtn">Nộp bài</button></p>
+        <div class="result" id="result"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Thư viện miễn phí vẽ thứ tự nét chữ Hán: https://hanziwriter.org -->
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7/dist/hanzi-writer.min.js"></script>
+  <script>const LESSON_DATA = {};</script>
+  <script src="data/index.js"></script>
+  <script src="app.js?v=4"></script>
+  <script src="lesson.js?v=4"></script>
+</body>
+</html>
