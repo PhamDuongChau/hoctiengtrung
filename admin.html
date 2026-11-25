@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Quản trị nội dung · Tiếng Trung Dương Châu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&family=Noto+Serif+SC:wght@700&display=swap">
+  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="admin.css?v=1">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="index.html">🏮 Quản trị nội dung</a>
+      <nav>
+        <a href="index.html">Xem trang web</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container admin">
+    <!-- ===== Kết nối GitHub ===== -->
+    <details class="box" id="settingsBox">
+      <summary><b>⚙️ Kết nối GitHub</b> <span id="connState" class="muted"></span></summary>
+      <p class="muted">Trang này đọc và lưu thẳng các file trong kho (repository) GitHub chứa trang web. Chỉ người có mã truy cập mới lưu được.</p>
+      <div class="form-grid">
+        <label>Tên tài khoản GitHub (owner)<input id="cfgOwner" placeholder="vd: tentaikhoan"></label>
+        <label>Tên kho (repository)<input id="cfgRepo" placeholder="vd: hoc-tieng-trung"></label>
+        <label>Nhánh (branch)<input id="cfgBranch" placeholder="main"></label>
+        <label>Thư mục chứa web trong kho<input id="cfgDir" placeholder="để trống nếu web nằm ngay ngoài cùng"></label>
+        <label class="wide">Mã truy cập (token)
+          <input id="cfgToken" type="password" autocomplete="off" placeholder="github_pat_…">
+        </label>
+        <label class="wide check"><input type="checkbox" id="cfgRemember"> Ghi nhớ mã trên trình duyệt này (chỉ bật trên máy riêng của bạn)</label>
+      </div>
+      <p>
+        <button class="btn" id="cfgSave">Lưu &amp; kiểm tra kết nối</button>
+        <button class="btn secondary" id="cfgForget">Xoá mã khỏi máy này</button>
+      </p>
+      <details class="help">
+        <summary>Cách tạo mã truy cập (làm một lần)</summary>
+        <ol>
+          <li>Mở <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (đăng nhập GitHub nếu được hỏi).</li>
+          <li><b>Token name</b>: đặt tên tuỳ ý, vd "Sửa web học tiếng Trung". <b>Expiration</b>: chọn thời hạn (vd 1 năm).</li>
+          <li><b>Repository access</b>: chọn <i>Only select repositories</i> → chọn đúng kho chứa trang web.</li>
+          <li><b>Permissions</b> → <i>Repository permissions</i> → <b>Contents</b>: chọn <b>Read and write</b>.</li>
+          <li>Bấm <b>Generate token</b>, sao chép mã (bắt đầu bằng <code>github_pat_</code>) rồi dán vào ô bên trên.</li>
+        </ol>
+        <p class="muted">Không gửi mã này cho ai. Nếu lộ, vào GitHub → Settings → Developer settings → Personal access tokens để xoá mã cũ và tạo mã mới.</p>
+      </details>
+    </details>
+
+    <!-- ===== Chọn bài ===== -->
+    <div class="toolbar">
+      <select id="lessonPick" class="chip"></select>
+      <button class="btn secondary" id="reloadBtn">↻ Tải lại bài</button>
+      <a class="btn secondary" id="viewBtn" target="_blank">👁 Xem bài trên web</a>
+      <span id="status" class="status"></span>
+    </div>
+
+    <div id="editor" hidden>
+      <div class="tabs" id="tabs">
+        <button class="tab" data-tab="info">ℹ️ Thông tin</button>
+        <button class="tab" data-tab="vocab">📖 Từ vựng</button>
+        <button class="tab" data-tab="phonetics">🔤 Ngữ âm</button>
+        <button class="tab" data-tab="text">💬 Bài khoá</button>
+        <button class="tab" data-tab="grammar">🧩 Ngữ pháp</button>
+        <button class="tab" data-tab="exercises">✍️ Bài tập</button>
+        <button class="tab" data-tab="answers">✅ Đáp án</button>
+      </div>
+
+      <div class="panel" id="p-info">
+        <div class="form-grid">
+          <label>Tên bài (chữ Hán)<input id="fTitle" class="zh"></label>
+          <label>Tên bài (tiếng Việt)<input id="fTitleVi"></label>
+        </div>
+      </div>
+
+      <div class="panel" id="p-vocab">
+        <p class="muted">Sửa thẳng trong ô. "Bộ phận chữ" và "Câu chuyện" để trống thì từ đó không hiện ở mục 💡 Câu chuyện nhớ chữ Hán.</p>
+        <div class="table-wrap">
+          <table class="edit-table">
+            <thead><tr><th>#</th><th>Chữ Hán</th><th>Pinyin</th><th>Hán Việt</th><th>Từ loại</th><th>Nghĩa</th><th>Bộ phận chữ</th><th>Câu chuyện nhớ chữ</th><th></th></tr></thead>
+            <tbody id="vocabRows"></tbody>
+          </table>
+        </div>
+        <p><button class="btn secondary" id="addWord">+ Thêm từ</button></p>
+      </div>
+
+      <div class="panel" id="p-markup">
+        <div class="split">
+          <div>
+            <textarea id="markupBox" spellcheck="false"></textarea>
+            <details class="help">
+              <summary>Ký hiệu định dạng</summary>
+              <table class="md-table cheat">
+                <tr><td><code>## Tiêu đề</code></td><td>Tiêu đề lớn</td></tr>
+                <tr><td><code>### Tiêu đề</code></td><td>Tiêu đề nhỏ</td></tr>
+                <tr><td><code>&gt; A | 你好！ | Nǐ hǎo!</code></td><td>Câu hội thoại: người nói | chữ Hán | pinyin</td></tr>
+                <tr><td><code>| ô 1 | ô 2 | ô 3</code></td><td>Một hàng của bảng</td></tr>
+                <tr><td><code>___</code></td><td>Ô trống để điền</td></tr>
+                <tr><td><code>?</code> (riêng một dòng)</td><td>Ô viết câu trả lời</td></tr>
+                <tr><td><code>@answers 3</code></td><td>Nút "Xem đáp án" của bài tập số 3 (sửa ở tab Đáp án)</td></tr>
+                <tr><td><code>---</code></td><td>Đường kẻ ngang</td></tr>
+              </table>
+            </details>
+          </div>
+          <div class="preview" id="markupPreview"></div>
+        </div>
+      </div>
+
+      <div class="panel" id="p-answers">
+        <p class="muted">Mỗi đáp án gắn với một số bài tập. Trong tab Bài tập, dòng <code>@answers 3</code> sẽ hiện nút "Xem đáp án" của số 3.</p>
+        <div id="answerList"></div>
+        <p><button class="btn secondary" id="addAnswer">+ Thêm đáp án</button></p>
+      </div>
+    </div>
+  </main>
+
+  <div class="savebar" id="saveBar" hidden>
+    <div class="container">
+      <span id="dirtyMsg"></span>
+      <button class="btn secondary" id="downloadBtn" title="Tải file về máy, dùng khi chưa kết nối GitHub">⬇ Tải file về</button>
+      <button class="btn" id="saveBtn">💾 Lưu lên GitHub</button>
+    </div>
+  </div>
+
+  <script>const LESSON_DATA = {};</script>
+  <script src="data/index.js"></script>
+  <script src="render.js?v=5"></script>
+  <script src="admin.js?v=2"></script>
+</body>
+</html>
