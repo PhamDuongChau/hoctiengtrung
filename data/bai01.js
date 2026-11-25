@@ -16,7 +16,7 @@ LESSON_DATA[1] = {
    "type": "代",
    "vi": "bạn, chị, anh,…",
    "parts": "",
-   "story": ""
+   "story": "ni là bạn bè"
   },
   {
    "hz": "好",
